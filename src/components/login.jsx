@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 const API_URL = 'http://localhost:3000/login';
@@ -9,7 +10,8 @@ class Login extends Component {
 
     this.state = {
       login: '',
-      password: ''
+      password: '',
+      redirect: false
     }
 
     this.handleChangeField = this.handleChangeField.bind(this);
@@ -35,6 +37,7 @@ class Login extends Component {
         .then((response) => {
           console.log(response.data)
           alert('Login Successful!')
+          this.setState({redirect: true})
         })
     } catch (e) {
       console.error(e)
@@ -49,7 +52,11 @@ class Login extends Component {
   }
 
   render() {
-    const { login, password } = this.state;
+    const { login, password, redirect } = this.state;
+
+    if(redirect) {
+      return <Redirect to="/articles" />
+    }
 
     return (
       <>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
+import { Redirect } from 'react-router';
 import axios from 'axios';
 const API_URL = 'http://localhost:3000/sign_up';
 
@@ -9,7 +10,8 @@ class SignUp extends Component {
 
     this.state = {
       login: '',
-      password: ''
+      password: '',
+      redirect: false
     }
 
     this.handleChangeField = this.handleChangeField.bind(this);
@@ -35,6 +37,7 @@ class SignUp extends Component {
         .then((response) => {
           console.log(response.data)
           alert('New user created!')
+          this.setState({ redirect: true });
         })
     } catch (e) {
       console.error(e)
@@ -49,7 +52,11 @@ class SignUp extends Component {
   }
 
   render() {
-    const { login, password } = this.state;
+    const { login, password, redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to="/articles" />
+    }
 
     return (
       <>

@@ -4,7 +4,6 @@ import Home from './components/home';
 import Article from './components/Article/form';
 import SignUp from './components/signup'
 import Login from './components/login'
-import './App.css';
 
 class App extends Component {
   render() {

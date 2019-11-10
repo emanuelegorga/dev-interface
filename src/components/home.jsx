@@ -10,6 +10,7 @@ class Home extends Component {
             <h1 className="text-center">DevBlog</h1>
             <NavLink to="/sign_up"> SignUp </NavLink>
             <NavLink to="/login"> LogIn </NavLink>
+            <NavLink to="/articles">Create a new article</NavLink>
           </div>
         </div>
       </div>

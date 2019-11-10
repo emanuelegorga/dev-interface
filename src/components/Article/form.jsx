@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 const API_URL = 'http://localhost:3000/articles';
 
@@ -65,6 +66,7 @@ class Form extends Component {
               className="btn btn-primary float-right">
               Submit
             </button>
+            <NavLink to="/"> Go Back </NavLink>
           </div>
         </div>
       </div>

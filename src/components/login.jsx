@@ -11,7 +11,8 @@ class Login extends Component {
     this.state = {
       login: '',
       password: '',
-      redirect: false
+      redirect: false,
+      token: ''
     }
 
     this.handleChangeField = this.handleChangeField.bind(this);
@@ -36,8 +37,9 @@ class Login extends Component {
       )
         .then((response) => {
           console.log(response.data)
+          const accessToken = response.data['data']['attributes']['token'];
+          this.setState({ redirect: true, token: accessToken})
           alert('Login Successful!')
-          this.setState({redirect: true})
         })
     } catch (e) {
       console.error(e)
@@ -52,10 +54,10 @@ class Login extends Component {
   }
 
   render() {
-    const { login, password, redirect } = this.state;
+    const { login, password, redirect, token } = this.state;
 
     if(redirect) {
-      return <Redirect to="/articles" />
+      return <Redirect to={{pathname: "/articles", token: token}} />
     }
 
     return (

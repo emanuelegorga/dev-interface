@@ -23,16 +23,39 @@ class Form extends Component {
     });
   }
 
-  handleSubmit(key, event) {
+  handleSubmit = async (key, event) => {
     const { title, body, author } = this.state;
 
-    // const prepareArticle = {}
+    const createSlug = (string) => {
+      string.split(" ").join("-");
+    }
 
-    return axios.post(API_URL, {
-      title,
-      body,
-      author
-    });
+    const prepareArticle = {
+      "data": {
+        "attributes": {
+          "content": body,
+          "title": title,
+          "slug": createSlug(title)
+        }
+      }
+    }
+
+    const headerConfig = { 
+      headers: { 'Authorization': "Bearer-" + this.props.location.token } 
+    }
+
+    try {
+      const newArticle = await axios.post(
+        API_URL, prepareArticle, headerConfig
+      )
+        .then((response) => {
+          console.log(response.data)
+          alert('Article created!')
+        })
+    } catch (e) {
+      console.error(e)
+      alert('Error! The article has not been created.')
+    }
   }
 
   render() {

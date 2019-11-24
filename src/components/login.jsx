@@ -57,7 +57,7 @@ class Login extends Component {
     const { login, password, redirect, token } = this.state;
 
     if(redirect) {
-      return <Redirect to={{pathname: "/articles", token: token}} />
+      return <Redirect to={{pathname: "/articles", state: { token: token }}} />
     }
 
     return (

@@ -11,6 +11,7 @@ class Form extends Component {
       title: '',
       body: '',
       author: '',
+      token: this.props.location.state.token
     }
 
     this.handleChangeField = this.handleChangeField.bind(this);
@@ -24,11 +25,17 @@ class Form extends Component {
   }
 
   handleSubmit = async (key, event) => {
-    const { title, body, author } = this.state;
+    const { title, body, author, token } = this.state;
+    console.log(token)
 
     const createSlug = (string) => {
-      string.split(" ").join("-");
+      return string.split(" ").join("-");
     }
+
+    const headerConfig = {
+      headers: { 'Authorization': token }
+    }
+    console.log(headerConfig)
 
     const prepareArticle = {
       "data": {
@@ -40,18 +47,14 @@ class Form extends Component {
       }
     }
 
-    const headerConfig = { 
-      headers: { 'Authorization': "Bearer-" + this.props.location.token } 
-    }
-
     try {
       const newArticle = await axios.post(
         API_URL, prepareArticle, headerConfig
       )
-        .then((response) => {
-          console.log(response.data)
-          alert('Article created!')
-        })
+      .then((response) => {
+        console.log(response.data)
+        alert('Article created!')
+      })
     } catch (e) {
       console.error(e)
       alert('Error! The article has not been created.')

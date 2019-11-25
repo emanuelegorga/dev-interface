@@ -36,9 +36,8 @@ class Login extends Component {
         API_URL, loginRequest
       )
         .then((response) => {
-          console.log(response.data)
           const accessToken = response.data['data']['attributes']['token'];
-          this.setState({ redirect: true, token: accessToken})
+          this.setState({ redirect: true, token: accessToken })
           alert('Login Successful!')
         })
     } catch (e) {
@@ -56,8 +55,8 @@ class Login extends Component {
   render() {
     const { login, password, redirect, token } = this.state;
 
-    if(redirect) {
-      return <Redirect to={{pathname: "/articles", state: { token: token }}} />
+    if (redirect) {
+      return <Redirect to={{ pathname: "/articles", state: { token: token } }} />
     }
 
     return (

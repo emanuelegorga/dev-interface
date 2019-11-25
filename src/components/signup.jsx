@@ -35,7 +35,6 @@ class SignUp extends Component {
         API_URL, signUpRequest
       )
         .then((response) => {
-          console.log(response.data)
           alert('New user created!')
           this.setState({ redirect: true });
         })
@@ -55,7 +54,7 @@ class SignUp extends Component {
     const { login, password, redirect } = this.state;
 
     if (redirect) {
-      return <Redirect to="/articles" />
+      return <Redirect to="/login" />
     }
 
     return (

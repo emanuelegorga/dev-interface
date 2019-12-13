@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+// import { ListArticle } from './ListArticle';
+import { connet } from 'react-redux';
 import axios from 'axios';
 const API_URL = 'http://localhost:3000/articles';
+
 
 class Form extends Component {
   constructor(props) {
@@ -18,6 +21,13 @@ class Form extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    const { onLoad } = this.props;
+
+    axios('http://localhost:3000/articles')
+      .then((response) => onLoad(response.data));
+  }
+
   handleChangeField(key, event) {
     this.setState({
       [key]: event.target.value,
@@ -25,7 +35,7 @@ class Form extends Component {
   }
 
   handleSubmit = async (key, event) => {
-    const { title, body, author, token } = this.state;
+    const { title, body, author, token, articles } = this.state;
     console.log(token)
 
     const createSlug = (string) => {
@@ -51,10 +61,10 @@ class Form extends Component {
       const newArticle = await axios.post(
         API_URL, prepareArticle, headerConfig
       )
-      .then((response) => {
-        console.log(response.data)
-        alert('Article created!')
-      })
+        .then((response) => {
+          console.log(response.data)
+          alert('Article created!')
+        })
     } catch (e) {
       console.error(e)
       alert('Error! The article has not been created.')
@@ -62,40 +72,51 @@ class Form extends Component {
   }
 
   render() {
-    const { title, body, author } = this.state;
+    const { title, body, author, token } = this.state;
+    const { articles } = this.props;
 
     return (
-      <div className="container">
-        <div className="row pt5">
-          <div className="col-12 col-lg-6 offset-lg-3">
-            <h1 className="text-center">DevBlog</h1>
-          </div>
-          <div className="col-12 col-lg-6 offset-lg-3">
-            <input
-              onChange={(ev) => this.handleChangeField('title', ev)}
-              value={title}
-              placeholder="Article Title"
-              className="form-control my-3" />
-            <textarea
-              onChange={(ev) => this.handleChangeField('body', ev)}
-              value={body}
-              placeholder="Article Description"
-              className="form-control my-3">
-            </textarea>
-            <input
-              onChange={(ev) => this.handleChangeField('author', ev)}
-              value={author}
-              className="form-control my-3"
-              placeholder="Article Author" />
-            <button
-              onClick={this.handleSubmit}
-              className="btn btn-primary float-right">
-              Submit
-            </button>
-            <NavLink to="/"> Go Back </NavLink>
+      <>
+        <div className="container">
+          <div className="row pt5">
+            <div className="col-12 col-lg-6 offset-lg-3">
+              <h1 className="text-center">DevBlog</h1>
+            </div>
+            <div className="col-12 col-lg-6 offset-lg-3">
+              <input
+                onChange={(ev) => this.handleChangeField('title', ev)}
+                value={title}
+                placeholder="Article Title"
+                className="form-control my-3" />
+              <textarea
+                onChange={(ev) => this.handleChangeField('body', ev)}
+                value={body}
+                placeholder="Article Description"
+                className="form-control my-3">
+              </textarea>
+              <input
+                onChange={(ev) => this.handleChangeField('author', ev)}
+                value={author}
+                className="form-control my-3"
+                placeholder="Article Author" />
+              <button
+                onClick={this.handleSubmit}
+                className="btn btn-primary float-right">
+                Submit
+              </button>
+              <NavLink to="/"> Go Back </NavLink>
+            </div>
           </div>
         </div>
-      </div>
+
+        <div className="row pt-5">
+          <div className="">
+
+          </div>
+        </div>
+
+        {/* <ListArticle isFetching={true} token={token} /> */}
+      </>
     );
   }
 }

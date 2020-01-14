@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-// import { ListArticle } from './ListArticle';
-import { connet } from 'react-redux';
+import ListArticle from './ListArticle';
 import axios from 'axios';
 const API_URL = 'http://localhost:3000/articles';
 
@@ -21,12 +20,12 @@ class Form extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    const { onLoad } = this.props;
+  // componentDidMount() {
+  //   const { onLoad } = this.props;
 
-    axios('http://localhost:3000/articles')
-      .then((response) => onLoad(response.data));
-  }
+  //   axios('http://localhost:3000/articles')
+  //     .then((response) => onLoad(response.data));
+  // }
 
   handleChangeField(key, event) {
     this.setState({
@@ -73,7 +72,6 @@ class Form extends Component {
 
   render() {
     const { title, body, author, token } = this.state;
-    const { articles } = this.props;
 
     return (
       <>
@@ -108,14 +106,9 @@ class Form extends Component {
             </div>
           </div>
         </div>
-
         <div className="row pt-5">
-          <div className="">
-
-          </div>
+          <ListArticle isFetching={true} token={token} />
         </div>
-
-        {/* <ListArticle isFetching={true} token={token} /> */}
       </>
     );
   }

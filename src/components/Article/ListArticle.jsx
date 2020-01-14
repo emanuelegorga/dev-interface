@@ -1,44 +1,58 @@
-// import React, { Component } from 'react';
-// import axios from 'axios';
-// const API_URL = 'http://localhost:3000/articles';
+import React, { Component } from 'react';
+import axios from 'axios';
+const API_URL = 'http://localhost:3000/articles';
 
-// class ListArticle extends Component {
-//   constructor(props) {
-//     super(props);
+class ListArticle extends Component {
+  constructor(props) {
+    super(props);
 
-//     this.state = {
-//       articles: [],
-//       token: '',
-//       isFetching: false
-//     }
-//   }
+    this.state = {
+      articles: [],
+      token: '',
+      isFetching: true
+    }
+  }
 
-//   render() {
-//     const articles = this.state;
+  handleListArticles = async (key, event) => {
+    const { token, isFetching } = this.props;
+    const articles = this.state;
 
-//     if (isFetching) {
-//       const headerConfig = {
-//         headers: { 'Authorization': token }
-//       }
+    if (isFetching) {
+      console.log(token);
 
-//       try {
-//         const testCall = await axios.post(
-//           API_URL, headerConfig
-//         )
-//           .then((response) => {
-//             console.log(response.data)
-//             alert('Articles fetched')
-//           })
-//       } catch (e) {
-//         console.error(e)
-//         alert('There has been an error while fetching the articles')
-//       }
-//     }
+      const headerConfig = {
+        headers: { 'Authorization': token }
+      }
 
-//     return (
-//       <h1> TEST </h1>
-//     )
-//   }
-// }
+      try {
+        const testCall = await axios.get(
+          API_URL, headerConfig
+        )
+          .then((response) => {
+            console.log(response.data)
+            alert('Articles fetched')
+          })
+      } catch (e) {
+        console.error(e)
+        alert('There was an issue while fetching the articles')
+      }
+    }
 
-// export default ListArticle;
+  }
+
+  render() {
+
+    return (
+      <>
+        <h1> LIST ARTICLES </h1>
+        <button
+          onClick={this.handleListArticles}
+          className="btn btn-primary float-right">
+          List all articles
+        </button>
+      </>
+    )
+  }
+}
+
+export default ListArticle;

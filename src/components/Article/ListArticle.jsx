@@ -12,7 +12,7 @@ class ListArticle extends Component {
     }
   }
 
-  handleListArticles = async (key, event) => {
+  componentDidMount() {
     const { token, isFetching } = this.props;
 
     if (isFetching) {
@@ -21,7 +21,7 @@ class ListArticle extends Component {
       }
 
       try {
-        const testCall = await axios.get(
+        const testCall = axios.get(
           API_URL, headerConfig
         )
           .then((response) => {
@@ -29,29 +29,69 @@ class ListArticle extends Component {
               articles: this.state.articles.concat(response.data.data)
             })
             console.log('articles', this.state.articles);
-            alert('Articles fetched');
+            // alert('Articles fetched');
           })
       } catch (e) {
         console.error(e)
         alert('There was an issue while fetching the articles')
       }
     }
-
   }
+
+  // handleListArticles = async (key, event) => {
+  //   const { token, isFetching } = this.props;
+
+  //   if (isFetching) {
+  //     const headerConfig = {
+  //       headers: { 'Authorization': token }
+  //     }
+
+  //     try {
+  //       const testCall = await axios.get(
+  //         API_URL, headerConfig
+  //       )
+  //         .then((response) => {
+  //           this.setState({
+  //             articles: this.state.articles.concat(response.data.data)
+  //           })
+  //           console.log('articles', this.state.articles);
+  //           // alert('Articles fetched');
+  //         })
+  //     } catch (e) {
+  //       console.error(e)
+  //       alert('There was an issue while fetching the articles')
+  //     }
+  //   }
+  // }
+
+  // componentDidMount() {
+  //   const { onLoad } = this.props;
+
+  //   axios('http://localhost:3000/articles')
+  //     .then((response) => onLoad(response.data));
+  // }
+
+  // TODO: UPDATE COMPONENT WHEN CREATING A NEW ARTICLE
+  // TODO: CREATE COOMMEN
 
   render() {
 
     return (
       <>
-        <h1> LIST ARTICLES </h1>
-        <button
+        <h1> Articles: </h1>
+
+        {/* <button
           onClick={this.handleListArticles}
           className="btn btn-primary float-right">
           List all articles
-        </button>
+        </button> */}
+
         {this.state.articles.map(article => (
           <div key={article.id} className="col-12 offset-lg-3">
-            <p>{article.attributes.title}</p>
+            <h3>Article n. {article.attributes.id}</h3>
+            <h4>Title: {article.attributes.title}</h4>
+            <p>Description: {article.attributes.content}</p>
+            <p>Author: {article.attributes.slug}</p>
           </div>
         ))}
       </>

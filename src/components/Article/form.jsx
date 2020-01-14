@@ -13,19 +13,13 @@ class Form extends Component {
       title: '',
       body: '',
       author: '',
-      token: this.props.location.state.token
+      token: this.props.location.state.token,
+      counter: 0
     }
 
     this.handleChangeField = this.handleChangeField.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  // componentDidMount() {
-  //   const { onLoad } = this.props;
-
-  //   axios('http://localhost:3000/articles')
-  //     .then((response) => onLoad(response.data));
-  // }
 
   handleChangeField(key, event) {
     this.setState({
@@ -64,6 +58,7 @@ class Form extends Component {
           console.log(response.data)
           alert('Article created!')
         })
+      this.setState({ counter: this.state.counter + 1 })
     } catch (e) {
       console.error(e)
       alert('Error! The article has not been created.')
@@ -99,7 +94,8 @@ class Form extends Component {
                 placeholder="Article Author" />
               <button
                 onClick={this.handleSubmit}
-                className="btn btn-primary float-right">
+                className="btn btn-primary float-right"
+              >
                 Submit
               </button>
               <NavLink to="/"> Go Back </NavLink>
@@ -107,7 +103,7 @@ class Form extends Component {
           </div>
         </div>
         <div className="row pt-5">
-          <ListArticle isFetching={true} token={token} />
+          <ListArticle key={this.state.counter} isFetching={true} token={token} />
         </div>
       </>
     );

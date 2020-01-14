@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-// import { ListArticle } from './ListArticle';
-import { connet } from 'react-redux';
-import axios from 'axios';
 import ListArticle from './ListArticle';
+import axios from 'axios';
 const API_URL = 'http://localhost:3000/articles';
 
 
@@ -22,12 +20,12 @@ class Form extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    const { onLoad } = this.props;
+  // componentDidMount() {
+  //   const { onLoad } = this.props;
 
-    axios('http://localhost:3000/articles')
-      .then((response) => onLoad(response.data));
-  }
+  //   axios('http://localhost:3000/articles')
+  //     .then((response) => onLoad(response.data));
+  // }
 
   handleChangeField(key, event) {
     this.setState({

@@ -42,7 +42,7 @@ class Login extends Component {
         })
     } catch (e) {
       console.error(e)
-      alert('Error login!')
+      alert('Username or Password wrong')
     }
   }
 
@@ -51,6 +51,7 @@ class Login extends Component {
       [key]: event.target.value,
     });
   }
+
 
   render() {
     const { login, password, redirect, token } = this.state;

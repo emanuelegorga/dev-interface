@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+// import { ListArticle } from './ListArticle';
+import { connet } from 'react-redux';
 import axios from 'axios';
 import ListArticle from './ListArticle';
 const API_URL = 'http://localhost:3000/articles';
+
 
 class Form extends Component {
   constructor(props) {
@@ -19,6 +22,13 @@ class Form extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    const { onLoad } = this.props;
+
+    axios('http://localhost:3000/articles')
+      .then((response) => onLoad(response.data));
+  }
+
   handleChangeField(key, event) {
     this.setState({
       [key]: event.target.value,
@@ -26,7 +36,7 @@ class Form extends Component {
   }
 
   handleSubmit = async (key, event) => {
-    const { title, body, author, token } = this.state;
+    const { title, body, author, token, articles } = this.state;
     console.log(token)
 
     const createSlug = (string) => {

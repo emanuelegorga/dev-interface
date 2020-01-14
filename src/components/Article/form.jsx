@@ -34,7 +34,7 @@ class Form extends Component {
   }
 
   handleSubmit = async (key, event) => {
-    const { title, body, author, token, articles } = this.state;
+    const { title, body, author, token } = this.state;
     console.log(token)
 
     const createSlug = (string) => {

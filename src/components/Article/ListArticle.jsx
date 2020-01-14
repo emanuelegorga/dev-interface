@@ -8,18 +8,14 @@ class ListArticle extends Component {
 
     this.state = {
       articles: [],
-      token: '',
       isFetching: true
     }
   }
 
   handleListArticles = async (key, event) => {
     const { token, isFetching } = this.props;
-    const articles = this.state;
 
     if (isFetching) {
-      console.log(token);
-
       const headerConfig = {
         headers: { 'Authorization': token }
       }
@@ -29,8 +25,11 @@ class ListArticle extends Component {
           API_URL, headerConfig
         )
           .then((response) => {
-            console.log(response.data)
-            alert('Articles fetched')
+            this.setState({
+              articles: this.state.articles.concat(response.data.data)
+            })
+            console.log('articles', this.state.articles);
+            alert('Articles fetched');
           })
       } catch (e) {
         console.error(e)
@@ -50,6 +49,11 @@ class ListArticle extends Component {
           className="btn btn-primary float-right">
           List all articles
         </button>
+        {this.state.articles.map(article => (
+          <div key={article.id} className="col-12 offset-lg-3">
+            <p>{article.attributes.title}</p>
+          </div>
+        ))}
       </>
     )
   }

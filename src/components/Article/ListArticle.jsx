@@ -76,9 +76,31 @@ class ListArticle extends Component {
 
   render() {
 
+    const styles = {
+      container: {
+        width: "90%",
+        marginTop: 0,
+        marginBottom: 0,
+        marginRight: "auto",
+        marginLeft: "auto",
+      },
+      header: {
+        textAlign: "center",
+        marginBottom: "3vh",
+      },
+      articles: {
+        border: "1px solid black",
+        marginBottom: "2vh",
+        width: "30%",
+        marginTop: 0,
+        marginRight: "auto",
+        marginLeft: "auto"
+      }
+    };
+
     return (
-      <>
-        <h1> Articles: </h1>
+      <div style={styles.container}>
+        <h1 style={styles.header}> Articles </h1>
 
         {/* <button
           onClick={this.handleListArticles}
@@ -86,16 +108,16 @@ class ListArticle extends Component {
           List all articles
         </button> */}
 
-        {this.state.articles.map(article => (
-          <div key={article.id} className="col-12 offset-lg-3">
+        {this.state.articles.map((article) => (
+          <div style={styles.articles} key={article.id} className="col-12 offset-lg-3">
             <h3>Article n. {article.attributes.id}</h3>
             <h4>Title: {article.attributes.title}</h4>
             <p>Description: {article.attributes.content}</p>
             <p>Author: {article.attributes.slug}</p>
           </div>
         ))}
-      </>
-    )
+      </div>
+    );
   }
 }
 

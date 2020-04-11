@@ -31,7 +31,7 @@ class SignUp extends Component {
     }
 
     try {
-      const newUser = await axios.post(
+      await axios.post(
         API_URL, signUpRequest
       )
         .then((response) => {

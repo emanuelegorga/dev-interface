@@ -9,11 +9,12 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      login: '',
-      password: '',
+      login: "",
+      password: "",
       redirect: false,
-      token: ''
-    }
+      token: "",
+      userId: ""
+    };
 
     this.handleChangeField = this.handleChangeField.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,12 +33,13 @@ class Login extends Component {
     }
 
     try {
-      const newLogin = await axios.post(
+      await axios.post(
         API_URL, loginRequest
       )
         .then((response) => {
+          const userId = response.data['data']['id']
           const accessToken = response.data['data']['attributes']['token'];
-          this.setState({ redirect: true, token: accessToken })
+          this.setState({ redirect: true, token: accessToken, userId: userId });
           alert('Login Successful!')
         })
     } catch (e) {
@@ -54,10 +56,10 @@ class Login extends Component {
 
 
   render() {
-    const { login, password, redirect, token } = this.state;
+    const { login, password, redirect, token, userId } = this.state;
 
     if (redirect) {
-      return <Redirect to={{ pathname: "/articles", state: { token: token } }} />
+      return <Redirect to={{ pathname: "/articles", state: { token: token, userId: userId } }} />
     }
 
     return (

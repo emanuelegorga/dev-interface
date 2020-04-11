@@ -14,6 +14,7 @@ class Form extends Component {
       body: '',
       author: '',
       token: this.props.location.state.token,
+      userId: this.props.location.state.userId,
       counter: 0
     }
 
@@ -29,7 +30,6 @@ class Form extends Component {
 
   handleSubmit = async (key, event) => {
     const { title, body, author, token } = this.state;
-    console.log(token)
 
     const createSlug = (string) => {
       return string.split(" ").join("-");
@@ -38,7 +38,6 @@ class Form extends Component {
     const headerConfig = {
       headers: { 'Authorization': token }
     }
-    console.log(headerConfig)
 
     const prepareArticle = {
       "data": {
@@ -51,11 +50,11 @@ class Form extends Component {
     }
 
     try {
-      const newArticle = await axios.post(
+      await axios.post(
         API_URL, prepareArticle, headerConfig
       )
         .then((response) => {
-          console.log(response.data)
+          // console.log(response.data)
           alert('Article created!')
         })
       this.setState({ counter: this.state.counter + 1 })
@@ -66,7 +65,7 @@ class Form extends Component {
   }
 
   render() {
-    const { title, body, author, token } = this.state;
+    const { title, body, author, token, userId } = this.state;
 
     return (
       <>
@@ -103,7 +102,7 @@ class Form extends Component {
           </div>
         </div>
         <div className="row pt-5">
-          <ListArticle key={this.state.counter} isFetching={true} token={token} />
+          <ListArticle key={this.state.counter} isFetching={true} token={token} userId={userId}/>
         </div>
       </>
     );

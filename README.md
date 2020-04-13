@@ -1,7 +1,8 @@
 Overview of Dev Articles React Interface
 ---
 
-Api project => https://github.com/emanuelegorga/dev-articles-api
+- Api project => https://github.com/emanuelegorga/dev-articles-api
+- Deployed it on Netlify => https://gorgadevblog.netlify.com
 
 Features
 ---

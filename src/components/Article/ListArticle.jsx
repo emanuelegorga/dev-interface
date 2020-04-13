@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Comment from "../comment";
 import ListComment from "../ListComment";
-const API_URL = 'http://localhost:3000/articles';
+const API_URL = 'https://dev-articles-api.herokuapp.com/articles';
 
 class ListArticle extends Component {
   constructor(props) {

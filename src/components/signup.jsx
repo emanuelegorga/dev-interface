@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import axios from 'axios';
-const API_URL = 'http://localhost:3000/sign_up';
+const API_URL = 'https://dev-articles-api.herokuapp.com/sign_up';
 
 class SignUp extends Component {
   constructor(props) {

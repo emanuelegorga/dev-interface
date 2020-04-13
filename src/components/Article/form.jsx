@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import ListArticle from './ListArticle';
 import axios from 'axios';
-const API_URL = 'http://localhost:3000/articles';
+const API_URL = 'https://dev-articles-api.herokuapp.com/articles';
 
 
 class Form extends Component {

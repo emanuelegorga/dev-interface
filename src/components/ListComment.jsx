@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-const API_URL = "http://localhost:3000/articles";
+const API_URL = "https://dev-articles-api.herokuapp.com/articles";
 
 class ListComment extends Component {
   constructor(props) {

@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
-let API_COMMENT_URL = "http://localhost:3000/articles";
+let API_COMMENT_URL = "https://dev-articles-api.herokuapp.com/articles";
 
 class Comment extends Component {
   constructor(props) {
